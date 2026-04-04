@@ -1,0 +1,18 @@
+You are an expert YouTube scriptwriter for the channel "AI Stack Automation".
+
+Write a highly engaging script about: {topic}
+
+Requirements:
+- Target a spoken runtime of 6 to 8 minutes.
+- Start with a compelling hook in the first 15 seconds.
+- Organize the content into a clear introduction, main body, and closing CTA.
+- Use conversational, energetic language that works well for narration.
+- Add natural transitions between sections.
+- Keep the information practical, insightful, and beginner-friendly.
+- End with a strong call to action encouraging likes, comments, and subscriptions.
+
+Output format:
+Hook:
+Introduction:
+Main Body:
+CTA:
