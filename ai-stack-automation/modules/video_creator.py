@@ -86,6 +86,41 @@ def generate_subtitles(script_text: str, duration: float, settings: Settings) ->
     return str(settings.subtitles_output_path)
 
 
+def create_test_video_from_image(
+    image_path: str,
+    settings: Settings,
+    duration: float = 5.0,
+) -> str:
+    """Create a short silent MP4 from a still image for upload testing."""
+    source_image = Path(image_path)
+    if not source_image.exists():
+        raise FileNotFoundError(f"Image file not found: {source_image}")
+
+    if source_image.suffix.lower() not in SUPPORTED_IMAGE_EXTENSIONS:
+        raise ValueError(f"Unsupported image file for test video: {source_image}")
+
+    output_path = settings.output_dir / "upload_test_video.mp4"
+    image_clip = None
+
+    try:
+        image_clip = ImageClip(str(source_image), duration=duration).resized((1920, 1080))
+        image_clip.write_videofile(
+            str(output_path),
+            fps=24,
+            codec="libx264",
+            audio=False,
+        )
+    except Exception as exc:  # pylint: disable=broad-except
+        LOGGER.exception("Test video creation failed.")
+        raise RuntimeError(f"Failed to create test video from image: {exc}") from exc
+    finally:
+        if image_clip is not None:
+            image_clip.close()
+
+    LOGGER.info("Upload test video saved to %s", output_path)
+    return str(output_path)
+
+
 def create_video(script_text: str, audio_path: str, settings: Settings) -> str:
     """Combine narration with background media and export the final MP4 video."""
     audio_file = Path(audio_path)

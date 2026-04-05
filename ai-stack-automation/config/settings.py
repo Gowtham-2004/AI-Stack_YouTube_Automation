@@ -42,6 +42,18 @@ class Settings:
     thumbnail_output_path: Path
 
 
+def _resolve_env_path(value: str, default_path: Path | None = None) -> str:
+    """Resolve an environment-provided path relative to the project root."""
+    raw_value = value.strip()
+    if not raw_value:
+        return str(default_path) if default_path else ""
+
+    path_value = Path(raw_value).expanduser()
+    if not path_value.is_absolute():
+        path_value = (BASE_DIR / path_value).resolve()
+    return str(path_value)
+
+
 def _build_settings() -> Settings:
     """Create the settings object and ensure required directories exist."""
     assets_dir = BASE_DIR / "assets"
@@ -65,8 +77,13 @@ def _build_settings() -> Settings:
         openai_model=os.getenv("OPENAI_MODEL", "gpt-4.1-mini"),
         elevenlabs_api_key=os.getenv("ELEVENLABS_API_KEY", ""),
         elevenlabs_voice_id=os.getenv("ELEVENLABS_VOICE_ID", "EXAVITQu4vr4xnSDxMaL"),
-        youtube_client_secrets_file=os.getenv("YOUTUBE_CLIENT_SECRETS_FILE", ""),
-        youtube_token_file=os.getenv("YOUTUBE_TOKEN_FILE", str(output_dir / "youtube_token.json")),
+        youtube_client_secrets_file=_resolve_env_path(
+            os.getenv("YOUTUBE_CLIENT_SECRETS_FILE", "")
+        ),
+        youtube_token_file=_resolve_env_path(
+            os.getenv("YOUTUBE_TOKEN_FILE", ""),
+            default_path=output_dir / "youtube_token.json",
+        ),
         youtube_category_id=os.getenv("YOUTUBE_CATEGORY_ID", "28"),
         log_level=log_level,
         base_dir=BASE_DIR,

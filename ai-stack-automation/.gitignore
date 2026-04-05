@@ -1,0 +1,25 @@
+.DS_Store
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+client_secret.json
+
+# Python caches and virtual environments
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Build and packaging artifacts
+build/
+dist/
+*.egg-info/
+
+# Local generated outputs
+output/
+

@@ -40,6 +40,7 @@ def _get_authenticated_service(settings: Settings):
     if not credentials or not credentials.valid:
         flow = InstalledAppFlow.from_client_secrets_file(str(secrets_file), SCOPES)
         credentials = flow.run_local_server(port=0)
+        token_file.parent.mkdir(parents=True, exist_ok=True)
         token_file.write_text(credentials.to_json(), encoding="utf-8")
 
     return build("youtube", "v3", credentials=credentials)
@@ -83,10 +84,16 @@ def upload_video(
         response = request.execute()
 
         if thumbnail_file and Path(thumbnail_file).exists():
-            youtube.thumbnails().set(
-                videoId=response["id"],
-                media_body=MediaFileUpload(thumbnail_file),
-            ).execute()
+            try:
+                youtube.thumbnails().set(
+                    videoId=response["id"],
+                    media_body=MediaFileUpload(thumbnail_file),
+                ).execute()
+            except HttpError as exc:
+                LOGGER.warning(
+                    "Video uploaded, but thumbnail upload was skipped: %s",
+                    exc,
+                )
 
         LOGGER.info("YouTube video uploaded with ID: %s", response["id"])
         return response

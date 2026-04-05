@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "ai-stack-automation"
+version = "0.1.0"
+description = "Automated YouTube content pipeline using OpenAI, ElevenLabs, MoviePy, and the YouTube Data API."
+authors = ["Gowtham"]
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.11"
+openai = ">=1.30.0"
+requests = ">=2.31.0"
+moviepy = ">=2.0.0"
+pillow = ">=10.0.0"
+google-api-python-client = ">=2.126.0"
+google-auth-oauthlib = ">=1.2.0"
+google-auth-httplib2 = ">=0.2.0"
+python-dotenv = ">=1.0.1"
+
+[build-system]
+requires = ["poetry-core>=1.9.0"]
+build-backend = "poetry.core.masonry.api"
