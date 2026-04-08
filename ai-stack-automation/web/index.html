@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI Stack Automation</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <p class="eyebrow">AI Stack Automation</p>
+      <h1>Turn one topic into a tracked short-form video</h1>
+      <p class="lede">
+        Enter a topic, generate a 12-scene storyboard, align the visuals with audio,
+        and save the final video directly into your project.
+      </p>
+    </section>
+
+    <section class="panel composer">
+      <label class="label" for="topic">Topic</label>
+      <div class="composer-row">
+        <input id="topic" class="topic-input" type="text" placeholder="rag database" maxlength="120">
+        <button id="generateButton" class="generate-button" type="button">Generate Video</button>
+      </div>
+      <p class="hint">Current MVP flow: DeepSeek scene plan -> scene audio -> scene visuals -> aligned final MP4 in the project <code>videos</code> folder.</p>
+    </section>
+
+    <section class="panel status-panel">
+      <div class="status-header">
+        <div>
+          <p class="label">Overall Status</p>
+          <h2 id="stage">Waiting for a topic</h2>
+          <p id="message" class="message">Nothing is running yet.</p>
+        </div>
+        <div class="badge-wrap">
+          <span id="statusBadge" class="status-badge idle">Idle</span>
+        </div>
+      </div>
+
+      <div class="progress-shell">
+        <div id="progressBar" class="progress-bar"></div>
+      </div>
+      <p id="progressText" class="progress-text">0%</p>
+
+      <div id="resultCard" class="result-card hidden">
+        <p class="label">Result</p>
+        <h3>Video generated successfully</h3>
+        <p id="videoPath" class="path"></p>
+        <video id="videoPreview" class="video-preview" controls preload="metadata"></video>
+      </div>
+    </section>
+
+    <section class="panel scene-panel">
+      <div class="scene-header">
+        <p class="label">Scene Tracker</p>
+        <p class="scene-subtitle">12 aligned scenes, each progressing from pending to completed.</p>
+      </div>
+      <div id="sceneGrid" class="scene-grid"></div>
+    </section>
+  </main>
+
+  <script src="/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,237 @@
+:root {
+  --bg: #f3efe5;
+  --bg-accent: #e8dcc4;
+  --panel: rgba(255, 253, 247, 0.88);
+  --ink: #1f2330;
+  --muted: #64708a;
+  --line: rgba(31, 35, 48, 0.12);
+  --primary: #126a5a;
+  --primary-soft: #d5efe9;
+  --warning: #c37d2a;
+  --danger: #bc3e3e;
+  --success: #168a53;
+  --shadow: 0 22px 60px rgba(55, 42, 16, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at top left, rgba(245, 205, 132, 0.35), transparent 26%),
+    radial-gradient(circle at top right, rgba(17, 106, 90, 0.18), transparent 30%),
+    linear-gradient(180deg, var(--bg) 0%, #f7f4ec 100%);
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.page {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 48px 20px 72px;
+}
+
+.hero h1 {
+  margin: 0;
+  font-size: clamp(2.3rem, 5vw, 4.6rem);
+  line-height: 0.94;
+  max-width: 760px;
+}
+
+.eyebrow,
+.label {
+  margin: 0 0 12px;
+  color: var(--primary);
+  font-size: 0.84rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+.lede,
+.hint,
+.message,
+.scene-subtitle,
+.progress-text,
+.path {
+  color: var(--muted);
+}
+
+.panel {
+  margin-top: 28px;
+  padding: 24px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: var(--panel);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(16px);
+}
+
+.composer-row {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.topic-input {
+  flex: 1 1 420px;
+  min-height: 56px;
+  padding: 14px 18px;
+  border-radius: 16px;
+  border: 1px solid rgba(18, 106, 90, 0.16);
+  font-size: 1.05rem;
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.generate-button {
+  min-width: 180px;
+  padding: 0 22px;
+  border: none;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #126a5a, #218f76);
+  color: white;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.generate-button:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.status-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.status-badge {
+  display: inline-flex;
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.status-badge.idle {
+  background: #ede6d4;
+  color: #6f633f;
+}
+
+.status-badge.running {
+  background: #d8efe9;
+  color: var(--primary);
+}
+
+.status-badge.completed {
+  background: #dbf4e3;
+  color: var(--success);
+}
+
+.status-badge.failed {
+  background: #f8dfdf;
+  color: var(--danger);
+}
+
+.progress-shell {
+  height: 14px;
+  margin-top: 22px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(18, 106, 90, 0.1);
+}
+
+.progress-bar {
+  width: 0%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #126a5a, #4bbf8e);
+  transition: width 0.35s ease;
+}
+
+.result-card {
+  margin-top: 22px;
+  padding: 18px;
+  border-radius: 18px;
+  background: var(--primary-soft);
+}
+
+.video-preview {
+  width: 100%;
+  margin-top: 14px;
+  border-radius: 16px;
+  background: #0f1118;
+}
+
+.scene-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 14px;
+}
+
+.scene-card {
+  padding: 16px;
+  border-radius: 18px;
+  border: 1px solid var(--line);
+  background: rgba(255, 255, 255, 0.74);
+}
+
+.scene-card h3 {
+  margin: 0 0 8px;
+  font-size: 1rem;
+}
+
+.scene-card p {
+  margin: 0 0 10px;
+  color: var(--muted);
+  font-size: 0.93rem;
+}
+
+.scene-pill {
+  display: inline-flex;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #efe7d4;
+  color: #73581b;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.scene-pill.done {
+  background: #dbf4e3;
+  color: var(--success);
+}
+
+.scene-pill.audio,
+.scene-pill.audio_done,
+.scene-pill.visual_done {
+  background: #d9edf8;
+  color: #1d6d9f;
+}
+
+.scene-pill.failed {
+  background: #f8dfdf;
+  color: var(--danger);
+}
+
+.hidden {
+  display: none;
+}
+
+@media (max-width: 700px) {
+  .page {
+    padding-top: 32px;
+  }
+
+  .status-header {
+    flex-direction: column;
+  }
+
+  .generate-button,
+  .topic-input {
+    width: 100%;
+  }
+}
